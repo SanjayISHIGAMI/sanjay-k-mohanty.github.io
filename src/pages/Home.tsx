@@ -39,7 +39,7 @@ const Home = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-background/90" />
         
         <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-tech-purple to-primary bg-clip-text text-transparent animate-pulse">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary via-tech-purple to-primary bg-clip-text text-transparent animate-pulse leading-tight md:leading-tight">
             Sanjay Kumar Mohanty
           </h1>
           
