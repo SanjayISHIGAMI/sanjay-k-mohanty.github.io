@@ -2,9 +2,90 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { Mail, Phone, MapPin, Github, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    if (!formData.name || !formData.email || !formData.message) {
+      toast({
+        title: "Error",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      // EmailJS configuration - you'll need to replace these with your actual EmailJS credentials
+      const serviceId = 'service_portfolio'; // Replace with your EmailJS service ID
+      const templateId = 'template_sqp90rl'; // Replace with your EmailJS template ID
+      const publicKey = 'UN24_s2P-MLVJ18lF'; // Replace with your EmailJS public key
+
+      const templateParams = {
+        to_email: 'kumeres741@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: 'Message from portfolio',
+        message: `
+Name: ${formData.name}
+Email: ${formData.email}
+Subject: ${formData.subject || 'No subject provided'}
+
+Message:
+${formData.message}
+        `.trim()
+      };
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for your message. I'll get back to you soon!",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+
+    } catch (error) {
+      console.error('Email sending failed:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or contact me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const contactInfo = [
     {
       icon: <Mail className="h-5 w-5" />,
@@ -163,33 +244,59 @@ const Contact = () => {
               <CardTitle>Send a Message</CardTitle>
             </CardHeader>
             <CardContent>
-              <form className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Name</label>
-                    <Input placeholder="Your name" />
+                    <label className="text-sm font-medium mb-2 block">Name *</label>
+                    <Input 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      placeholder="Your name" 
+                      required
+                    />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Email</label>
-                    <Input type="email" placeholder="your.email@example.com" />
+                    <label className="text-sm font-medium mb-2 block">Email *</label>
+                    <Input 
+                      type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="your.email@example.com" 
+                      required
+                    />
                   </div>
                 </div>
                 
                 <div>
                   <label className="text-sm font-medium mb-2 block">Subject</label>
-                  <Input placeholder="Research collaboration inquiry" />
-                </div>
-                
-                <div>
-                  <label className="text-sm font-medium mb-2 block">Message</label>
-                  <Textarea 
-                    placeholder="Tell me about your research interests, collaboration ideas, or any questions you have..."
-                    rows={6}
+                  <Input 
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    placeholder="Research collaboration inquiry" 
                   />
                 </div>
                 
-                <Button className="w-full bg-gradient-to-r from-primary to-tech-purple hover:opacity-90 transition-opacity">
-                  Send Message
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Message *</label>
+                  <Textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Tell me about your research interests, collaboration ideas, or any questions you have..."
+                    rows={6}
+                    required
+                  />
+                </div>
+                
+                <Button 
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full bg-gradient-to-r from-primary to-tech-purple hover:opacity-90 transition-opacity"
+                >
+                  {isLoading ? "Sending..." : "Send Message"}
                 </Button>
               </form>
               
