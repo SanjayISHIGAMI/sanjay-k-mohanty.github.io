@@ -56,7 +56,7 @@ const Skills = () => {
         { name: "Git/GitHub", level: 88, description: "Version control and collaboration" },
         { name: "Docker", level: 82, description: "Containerization and deployment" },
         { name: "Jupyter/IPython", level: 95, description: "Interactive development and research" },
-        { name: "Linux/Unix", level: 85, description: "System administration and command line" },
+        { name: "Linux/Unix", level: 95, description: "System administration and command line" },
         { name: "CI/CD", level: 75, description: "Automated testing and deployment" }
       ]
     },
@@ -64,8 +64,8 @@ const Skills = () => {
 
   const frameworks = [
     "TensorFlow", "PyTorch", "Keras", "Scikit-learn", "Pandas", "NumPy", 
-    "RDKit", "OpenEye", "BioPython", "Matplotlib", "Seaborn", "Plotly",
-    "FastAPI", "Flask", "Django", "React", "Node.js", "Docker"
+    "RDKit", "OpenMM", "BioPython", "Matplotlib", "Seaborn", "Plotly",
+    "PyMol", "Gromacs", "Modeller", "AutoDock", "MGLtools", "Open Babel", "Docker"
   ];
 
   const databases = [
@@ -125,7 +125,7 @@ const Skills = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
-              <CardTitle>Frameworks & Libraries</CardTitle>
+              <CardTitle>Tools & Frameworks</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2">
@@ -161,33 +161,6 @@ const Skills = () => {
             </CardContent>
           </Card>
         </div>
-
-        {/* Skill Proficiency Legend */}
-        <Card className="bg-muted/50">
-          <CardHeader>
-            <CardTitle>Proficiency Levels</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-green-500 rounded"></div>
-                <span className="text-sm">Expert (90-100%)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-blue-500 rounded"></div>
-                <span className="text-sm">Advanced (80-89%)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-yellow-500 rounded"></div>
-                <span className="text-sm">Intermediate (70-79%)</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-gray-500 rounded"></div>
-                <span className="text-sm">Beginner (60-69%)</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

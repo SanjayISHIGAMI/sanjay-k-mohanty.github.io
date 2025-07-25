@@ -113,6 +113,11 @@ const Research = () => {
 
   const conferences = [
     {
+      year: 2025,
+      title: "European Molecular Biology Organization PhD course",
+      location: "IISER Pune, Pune, India"
+    },
+    {
       year: 2024,
       title: "Cell Symposia: Chemical biology in drugging the undrugged 2024",
       location: "UCSF, San Francisco, USA"
@@ -123,19 +128,24 @@ const Research = () => {
       location: "MKU, Madurai, India"
     },
     {
+      year: 2024,
+      title: "EMBO Lecture Course, Post-transcriptional regulation in ageing and age-related diseases",
+      location: "SNU, UP, India"
+    },
+    {
       year: 2023,
       title: "Algorithms that Transformed Molecular Biology (ATMB)",
-      location: "IIIT Delhi, New Delhi"
+      location: "IIIT Delhi, New Delhi, India"
     },
     {
       year: 2022,
       title: "DBT-sponsored workshop on 'AI in Modern Biology'",
-      location: "ICGEB, New Delhi"
+      location: "ICGEB, New Delhi, India"
     },
     {
       year: 2019,
       title: "Workshop Series on Machine Learning",
-      location: "IIT Patna"
+      location: "IIT Patna, Bihar, India"
     }
   ];
 
